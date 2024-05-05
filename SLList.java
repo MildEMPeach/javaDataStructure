@@ -1,6 +1,6 @@
-public class SLList{
+public class SLList<Item>{
 
-	private class IntNode{
+	private class ItemNode{
 		/*
 		why private?
 
@@ -12,27 +12,27 @@ public class SLList{
 		access variables or methods of SLList.)
 
 		*/
-		public int item;
-		public IntNode next;
+		public Item item;
+		public ItemNode next;
 		
-		public IntNode(int i,IntNode n){
+		public ItemNode(Item i,ItemNode n){
 			item = i;
 			next =n ;
 		}
 	}
 
 	//private IntNode first;
-	private IntNode sentinel;
+	private ItemNode sentinel;
 	private int size;
 
 	/*create a empty list*/
 	public SLList(){
 		size=0;
 		//first = null;
-		sentinel = new IntNode(-1,null); // item can be casual
+		sentinel = new ItemNode(null,null); // item can be casual
 	}
 
-	public SLList(int x){
+	public SLList(Item x){
 		/*create*/
 		size=0;
 		//first = new IntNode(x,null);
@@ -40,16 +40,16 @@ public class SLList{
 		sentinel = new IntNode(-1,null);
 		sentinel.next = new IntNode(x,null);
 		*/
-		sentinel = new IntNode(-1,new IntNode(x,null));
+		sentinel = new ItemNode(null,new ItemNode(x,null));
 	}
 
-	public void addfirst(int x){
+	public void addfirst(Item x){
 		size+=1;
 		//first = new IntNode(x,first);
-		sentinel.next = new IntNode(x,sentinel.next);
+		sentinel.next = new ItemNode(x,sentinel.next);
 	}
 
-	public void addlast(int x){
+	public void addlast(Item x){
 		/*insert one node into the end of the SLList,written by gh*/ 
 		size+=1;
 		//to fix this problem , you can import invariant like 
@@ -59,23 +59,23 @@ public class SLList{
 		// 	return ;
 		// }
 		//IntNode p = first ;
-		IntNode p = sentinel;
+		ItemNode p = sentinel;
 		while(p.next!=null){
 			p=p.next;
 		}
-		p.next=new IntNode(x,null);
+		p.next=new ItemNode(x,null);
 	}
 
-	public int getlast(){
+	public Item getlast(){
 		//IntNode p =first;
-		IntNode p = sentinel;
+		ItemNode p = sentinel;
 		while(p.next!=null){
 			p=p.next;
 		}
 		return p.item;
 	}
 
-	public int getfirst(){
+	public Item getfirst(){
 		//return first.item;
 		return sentinel.next.item;
 	}
@@ -117,7 +117,7 @@ public class SLList{
 
 	public static void main(String[] args){
 		//SLList L = new SLList(10);
-		SLList L = new SLList();
+		SLList<Integer> L = new SLList<Integer>();
 		// L.addfirst(5);
 		// L.addfirst(15);
 		//L.addlast(20);
@@ -125,5 +125,11 @@ public class SLList{
 		System.out.println("The size is "+ L.size());
 		System.out.println("The last is "+L.getlast());
 		System.out.println("The first is "+L.getfirst());
+
+		SLList<String> T = new SLList<>();
+		T.addfirst("HELLO");
+		T.addfirst("WORLD");
+		T.addlast("yes");
+		System.out.println(T.getlast());
 	}
 }
