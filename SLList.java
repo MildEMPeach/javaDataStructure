@@ -1,4 +1,4 @@
-public class SLList<Item>{
+public class SLList<Item> implements List<Item>{
 
 	private class ItemNode{
 		/*
@@ -43,12 +43,14 @@ public class SLList<Item>{
 		sentinel = new ItemNode(null,new ItemNode(x,null));
 	}
 
+
 	public void addfirst(Item x){
 		size+=1;
 		//first = new IntNode(x,first);
 		sentinel.next = new ItemNode(x,sentinel.next);
 	}
 
+	@Override
 	public void addlast(Item x){
 		/*insert one node into the end of the SLList,written by gh*/ 
 		size+=1;
@@ -74,6 +76,7 @@ public class SLList<Item>{
 		}
 		return p.item;
 	}
+
 
 	public Item getfirst(){
 		//return first.item;
@@ -111,10 +114,21 @@ public class SLList<Item>{
 /*private int size;*/
 /*public int size(){return size;}*/
 
+	@Override
 	public int size(){
-		return this.size;
+		return size;
 	}
 
+	@Override
+	public Item get(int i){
+		int cnt = 0;
+		ItemNode p = sentinel.next;
+		while (cnt != i) {
+			cnt ++ ;
+			p=p.next;
+		}
+		return p.item;
+	}
 	public static void main(String[] args){
 		//SLList L = new SLList(10);
 		SLList<Integer> L = new SLList<Integer>();
@@ -122,14 +136,8 @@ public class SLList<Item>{
 		// L.addfirst(15);
 		//L.addlast(20);
 		L.addlast(1314);
-		System.out.println("The size is "+ L.size());
-		System.out.println("The last is "+L.getlast());
-		System.out.println("The first is "+L.getfirst());
-
-		SLList<String> T = new SLList<>();
-		T.addfirst("HELLO");
-		T.addfirst("WORLD");
-		T.addlast("yes");
-		System.out.println(T.getlast());
+		L.addlast(520);
+		L.addlast(521);
+		L.print();
 	}
 }

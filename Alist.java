@@ -1,4 +1,4 @@
-public class Alist<Item> {
+public class Alist<Item> implements List<Item>{
     // Array based list
     private Item[] items;
     private int size;
@@ -9,13 +9,13 @@ public class Alist<Item> {
     }
 
     /*resize the Alist */
-    public void resize(int capacity){
+    private void resize(int capacity){
         Item[] a =(Item[]) new Object[capacity];
         System.arraycopy(items, 0, a, 0, size);
         items = a;
     }
 
-    public void addLast(Item x){
+    public void addlast(Item x){
         /*resize array when items is full */
         if(size == items.length){
             //resize(size+1);
@@ -44,11 +44,11 @@ public class Alist<Item> {
         return x;
     }
     
-    public static void main(String[] args) {
-        Alist<Integer> a = new Alist<Integer>();
-        a.addLast(10);
-        a.addLast(15);
-        a.addLast(78);
-        System.out.println(a.get(1));
-    }
+    // public static void main(String[] args) {
+    //     Alist<Integer> a = new Alist<Integer>();
+    //     a.addLast(10);
+    //     a.addLast(15);
+    //     a.addLast(78);
+    //     System.out.println(a.get(1));
+    // }
 }
