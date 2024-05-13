@@ -14,15 +14,19 @@ public class WeightedDisjointSets implements DisjointSets{
     }
 
     public int find(int x){
-        /*find the root of x*/
-        while(parent[x] >= 0){
-            x = parent[x];
-        }
-        return x;
+        /* very very very important,find the root of x*/        
+        /* use recursion with path compression */
+        if(parent[x] < 0) { return x;}
+        int returnposition = find(parent[x]);
+        parent[x] = returnposition;
+        return returnposition;
     }
 
+
     @Override
+    /* Maybe improved in the future */
     public void connect(int p,int q){
+        /*O(logN) */
         /* to connect p and q */
         /* new rule in weightedDisjointSets: to link the root with smaller weight
         to the large one.
@@ -47,30 +51,30 @@ public class WeightedDisjointSets implements DisjointSets{
     }
 
     @Override
-    public boolean isConnected(int p,int q){
+    public boolean isConnected(int p,int q){ 
+        /*O(logN) */
         /*to compare int , == has the same function as equals*/
         return find(p)==find(q);        
     }
 
     public void testWeightedDisjointSets(){
+        /*To test the WeightedDisjointSets*/
         for(int i=0;i<parent.length;i++){
             System.out.println(i+":"+parent[i]);
         }
     }
 
     public static void main(String[] args) {
-        WeightedDisjointSets testSets = new WeightedDisjointSets(7);
+        WeightedDisjointSets testSets = new WeightedDisjointSets(8);
         testSets.connect(0, 1);
-        //testSets.testWeightedDisjointSets(); ok
-        testSets.connect(1, 2);
-        //testSets.testWeightedDisjointSets(); ok
-        testSets.connect(1, 4);
-        //testSets.testWeightedDisjointSets();
-        testSets.connect(3, 5);
+        testSets.connect(2, 3);
+        testSets.connect(0, 3);
+        testSets.connect(4, 5);
+        testSets.connect(6, 7);
+        testSets.connect(4, 7);
         testSets.testWeightedDisjointSets();
-        System.out.println(testSets.isConnected(3, 6));
-        testSets.connect(5, 6);
-        System.out.println(testSets.isConnected(3, 6));
+        testSets.connect(3, 7);
+        //System.out.println(testSets.isConnected(3, 1));
+        testSets.testWeightedDisjointSets();
     }
-
 }
